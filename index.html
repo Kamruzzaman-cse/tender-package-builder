@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tender Package Builder</title>
+  <meta name="description" content="Check, order and combine tender PDFs into one ready-to-submit package. Works fully in the browser.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📑</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="seal" aria-hidden="true">T</div>
+      <div>
+        <h1 data-i18n="appTitle">Tender Package Builder</h1>
+        <p data-i18n="appSub"></p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button id="btnReset" class="btn ghost sm" type="button" data-i18n="startOver"></button>
+      <button id="btnLang" class="btn lang" type="button">বাংলা</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card" id="secReq">
+      <div class="card-head">
+        <span class="step">1</span>
+        <div>
+          <h2 data-i18n="step1"></h2>
+          <p class="muted" data-i18n="step1Help"></p>
+        </div>
+      </div>
+      <div class="row-actions">
+        <label class="btn primary" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.querySelector('input').click()}">
+          <input type="file" id="inpReq" accept=".json,application/json" hidden>
+          <span data-i18n="loadReq"></span>
+        </label>
+        <span id="reqFileName" class="muted small"></span>
+      </div>
+      <div id="tenderBox"></div>
+    </section>
+
+    <div class="grid">
+      <section class="card" id="secFiles">
+        <div class="card-head">
+          <span class="step">2</span>
+          <div>
+            <h2 data-i18n="step2"></h2>
+            <p class="muted" data-i18n="step2Help"></p>
+          </div>
+        </div>
+        <div id="drop" class="drop" role="button" tabindex="0">
+          <input type="file" id="inpPdf" multiple hidden>
+          <div class="drop-icon" aria-hidden="true">+</div>
+          <strong data-i18n="dropTitle"></strong>
+          <span class="muted small" data-i18n="dropHint"></span>
+        </div>
+        <div id="fileStats" class="muted small stats"></div>
+        <ul id="fileList" class="file-list"></ul>
+      </section>
+
+      <section class="card" id="secCheck">
+        <div class="card-head">
+          <span class="step">3</span>
+          <div>
+            <h2 data-i18n="step3"></h2>
+            <p class="muted" data-i18n="step3Help"></p>
+          </div>
+        </div>
+        <div class="row-actions">
+          <button id="btnAuto" class="btn ghost" type="button" data-i18n="autoMatch"></button>
+          <button id="btnCsv" class="btn ghost" type="button" data-i18n="exportCsv"></button>
+        </div>
+        <div id="summary" class="summary"></div>
+        <div id="checklist" class="checklist"></div>
+      </section>
+    </div>
+
+    <section class="card" id="secGen">
+      <div class="card-head">
+        <span class="step">4</span>
+        <div>
+          <h2 data-i18n="step4"></h2>
+          <p class="muted" data-i18n="step4Help"></p>
+        </div>
+      </div>
+      <label class="check"><input type="checkbox" id="chkIndex" checked> <span data-i18n="includeIndex"></span></label>
+      <div id="blockers"></div>
+      <div class="row-actions">
+        <button id="btnGen" class="btn primary lg" type="button" disabled data-i18n="generate"></button>
+        <a id="lnkDownload" class="btn success lg hidden" href="#"></a>
+      </div>
+      <p id="genInfo" class="muted small"></p>
+    </section>
+  </main>
+
+  <footer class="foot muted small" data-i18n="privacy"></footer>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script>window.PDFLib || document.write('<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"><\/script>');</script>
+  <script src="i18n.js"></script>
+  <script src="pdfbuilder.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
